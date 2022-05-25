@@ -1,10 +1,18 @@
-const express = require('express')
-const app = express()
+const port = process.env.PORT || 3001;
+const express = require('express');
+const app = express();
+const router = (global.router = (express.Router()));
+const bodyParser = require('body-parser');
 
-app.use('/', (req, res) => {
-    res.send(`OK`)
-})
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.listen(3000, (req, res) => {
-    console.log(`App listening on port 3000`)
-})
+require('./routes/about');
+require('./routes/contact');
+require('./routes/home');
+require('./routes/services');
+app.use(router);
+
+app.listen(port, () =>
+    console.log(`API listening on port ${port}`)
+);
