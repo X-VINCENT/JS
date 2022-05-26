@@ -9,7 +9,6 @@
         "client": "npm run start --prefix ../client",
         "dev": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\""
     },
-    "proxy": "http://localhost:3001",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/EpitechPromo2026/B-WEB-200-BDX-2-1-epytodo-xavier.vincent.git"
