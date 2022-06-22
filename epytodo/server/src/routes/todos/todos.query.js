@@ -23,10 +23,12 @@ router.create_todo = function(todoData, req, res) {
     if (todoData["title"] && todoData["description"] && todoData["due_time"] &&
         todoData["user_id"] && todoData["status"])
         db.query(add_todo, [todoData["title"], todoData["description"], todoData["due_time"],
-            todoData["user_id"], todoData["status"]], (err, results) => {
-            if (err)
+            todoData["user_id"], todoData["status"]
+        ], (err, results) => {
+            if (err) {
+                console.log(err);
                 return res.status(500).json({ msg: `Internal server error` });
-            else
+            } else
                 return router.get_todo_info(results["insertId"], req, res);
         });
     else
@@ -44,12 +46,13 @@ router.update_todo = function(todoData, id, req, res) {
                 return res.status(500).json({ msg: `Internal server error` });
             if (results.length > 0)
                 db.query(update_todo, [todoData["title"], todoData["description"], todoData["due_time"],
-                    todoData["user_id"], todoData["status"], id], (err) => {
+                    todoData["user_id"], todoData["status"], id
+                ], (err) => {
                     if (err)
                         return res.status(500).json({ msg: `Internal server error` });
                     db.query(check_todo, [id], (err, results) => {
                         if (err)
-                            return res.status(500).json({msg: `Internal server error`});
+                            return res.status(500).json({ msg: `Internal server error` });
                         return res.status(200).json(results);
                     });
                 });
